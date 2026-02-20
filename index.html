@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sayak | Personal Website</title>
+  <meta name="description" content="Personal website of Sayak, PhD student in physics.">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["$", "$"], ["\\(", "\\)"]],
+        displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --bg: #eaf4ff;
+      --ink: #1a2a3a;
+      --muted: #4e6478;
+      --paper: #f8fcff;
+      --accent: #1f6fb2;
+      --accent-2: #0d7a73;
+      --line: #c7d9ea;
+      --shadow: 0 14px 30px rgba(29, 42, 48, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(31, 111, 178, 0.13), transparent 33%),
+        radial-gradient(circle at 84% 10%, rgba(13, 122, 115, 0.1), transparent 35%),
+        linear-gradient(180deg, #f5faff 0%, var(--bg) 55%, #e2effb 100%);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      background-image: radial-gradient(rgba(29, 42, 48, 0.35) 0.35px, transparent 0.35px);
+      background-size: 2px 2px;
+      z-index: -1;
+    }
+
+    .container {
+      width: min(980px, 92vw);
+      margin: 0 auto;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(8px);
+      background: rgba(244, 239, 230, 0.75);
+      border-bottom: 1px solid var(--line);
+      z-index: 20;
+    }
+
+    .nav-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 0;
+    }
+
+    .brand {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+    }
+
+    .menu {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .menu a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.94rem;
+      border-bottom: 2px solid transparent;
+      transition: border-color 180ms ease;
+    }
+
+    .menu a:hover {
+      border-color: var(--accent);
+    }
+
+    header {
+      padding: 4.75rem 0 3.25rem;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 1.2rem;
+      align-items: start;
+    }
+
+    .headline {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      line-height: 1.08;
+      letter-spacing: -0.6px;
+      max-width: 16ch;
+    }
+
+    .kicker {
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .headline em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .subhead {
+      margin-top: 1.1rem;
+      color: var(--muted);
+      max-width: 70ch;
+      font-size: 1.06rem;
+    }
+
+    .bio-contact {
+      margin-top: 0.9rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .bio-contact p {
+      margin-bottom: 0.35rem;
+    }
+
+    .bio-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem 0.8rem;
+    }
+
+    .bio-links a {
+      color: var(--accent-2);
+      text-decoration: none;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(15, 107, 97, 0.3);
+    }
+
+    .bio-links a:hover {
+      text-decoration: underline;
+    }
+
+    .hero-photo {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 0.28rem;
+      box-shadow: var(--shadow);
+      width: min(100%, 280px);
+      margin-left: auto;
+    }
+
+    .hero-photo img {
+      display: block;
+      width: 100%;
+      height: 280px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .hero-photo figcaption {
+      margin-top: 0.5rem;
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .cta-row {
+      margin-top: 1.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .collab-note {
+      margin-top: 0.9rem;
+      font-weight: 600;
+      color: #294760;
+      font-size: 0.98rem;
+    }
+
+    .btn {
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 0.68rem 1rem;
+      border: 2px solid transparent;
+      transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+    }
+
+    .btn.primary {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .btn.red {
+      background: #c13a2c;
+      color: #fff;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 14px rgba(29, 42, 48, 0.18);
+    }
+
+    section {
+      padding: 2.9rem 0;
+    }
+
+    .section-title {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 2.05rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .section-title::before {
+      content: "";
+      width: 30px;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--accent-2);
+      display: inline-block;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 1rem;
+    }
+
+    .about-main {
+      grid-column: 1 / -1;
+    }
+
+    .codes-awards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .card p + p {
+      margin-top: 0.7rem;
+    }
+
+    .clean-list {
+      margin-top: 0.65rem;
+      padding-left: 1rem;
+    }
+
+    .clean-list li {
+      margin-bottom: 0.42rem;
+      color: var(--muted);
+    }
+
+    .stats {
+      list-style: none;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .stats li {
+      border-left: 4px solid var(--accent);
+      padding-left: 0.62rem;
+      color: var(--muted);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .timeline-item h3 {
+      font-size: 1.16rem;
+    }
+
+    .interest-group {
+      margin-bottom: 0.9rem;
+    }
+
+    .interest-group-main {
+      font-size: 1.58rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .interest-topic-title {
+      font-size: 1.06rem;
+      margin-top: 0.45rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .topic-list {
+      margin-top: 0.45rem;
+      padding-left: 1rem;
+      color: var(--muted);
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.93rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.7rem;
+    }
+
+    .chip {
+      font-size: 0.84rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.25rem 0.62rem;
+      background: #fff;
+    }
+
+    .pub-list {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .pub-title {
+      font-size: 1rem;
+      margin-bottom: 0.18rem;
+    }
+
+    .pub-authors {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 0.04rem;
+      line-height: 1.2;
+    }
+
+    .pub-journal {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 0;
+      margin-bottom: 0.08rem;
+      line-height: 1.15;
+      font-style: italic;
+    }
+
+    .pub-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 0.18rem;
+    }
+
+    .pub-links a {
+      font-size: 0.92rem;
+      color: var(--accent-2);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .pub-links a:hover {
+      text-decoration: underline;
+    }
+
+    .pub-details summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 0.92rem;
+      margin-top: 0.1rem;
+    }
+
+    .pub-details p {
+      margin-top: 0.35rem;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .pub-list-item + .pub-list-item {
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--line);
+    }
+
+    .pub-meta {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 0.9rem;
+    }
+
+    .contact-links a {
+      text-decoration: none;
+      color: #fff;
+      background: var(--accent-2);
+      padding: 0.52rem 0.78rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.91rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      padding: 1.4rem 0 2.1rem;
+      font-size: 0.9rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 860px) {
+      .hero-layout {
+        grid-template-columns: 1fr;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      .codes-awards-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-photo {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 580px) {
+      header {
+        padding-top: 3.6rem;
+      }
+      .menu {
+        gap: 0.7rem;
+      }
+      .menu a {
+        font-size: 0.86rem;
+      }
+      .hero-photo {
+        width: min(100%, 220px);
+      }
+      .hero-photo img {
+        height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+  <nav>
+    <div class="container nav-wrap">
+      <div class="brand">Sayak Guha Roy</div>
+      <div class="menu">
+        <a href="#about">About</a>
+        <a href="#publications">Publications</a>
+        <a href="#research">Research</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#outreach">Outreach</a>
+        <a href="#hobbies">Hobbies</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="container reveal">
+    <div class="hero-layout">
+      <div>
+        <p class="kicker">Ph.D. candidate in physics at Rice University</p>
+        <h1 class="headline">Sayak Guha Roy</h1>
+        <p class="subhead">
+          I am a <b>Ph.D. candidate</b> in theoretical physics in the <b>Department of Physics and Astronomy at Rice University</b> in Houston, Texas working with
+          <a href="https://kaden.rice.edu/" target="_blank" rel="noopener">Prof. Kaden Hazzard</a>. Broadly, my
+          research interests lie at the intersection of <b>quantum many-body physics</b>, <b>quantum dynamics</b>, <b>quantum simulation</b>, and <b>quantum information theory</b> focusing on <b>numerical simulations</b>.
+        </p>
+        <div class="bio-contact">
+          <p><strong>Location:</strong> Houston, Texas, USA</p>
+          <div class="bio-links">
+            <a href="mailto:sg161@rice.edu">sg161@rice.edu</a>
+            <a href="https://scholar.google.com/citations?hl=en&user=lOpcHxwAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+            <a href="https://github.com/guharoysayak" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/sayak-guha-roy-508086210/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="assets/CV_SGR.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+          </div>
+        </div>
+        <p class="collab-note">Interested in collaborative projects bridging theory, numerics, and quantum simulation experiments.</p>
+        <div class="cta-row">
+          <a class="btn red" href="#publications">View Publications</a>
+          <a class="btn red" href="assets/CV_SGR.pdf" target="_blank" rel="noopener">View CV</a>
+          <a class="btn secondary" href="#contact">Get in Touch</a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src="img/sayakpic.jpeg" alt="Portrait of Sayak Guha Roy">
+        <figcaption>
+          <strong>Role:</strong> PhD candidate, Rice University<br>
+          <strong>Program:</strong> PhD Physics and Astronomy<br>
+          <strong>Based in:</strong> Houston, Texas<br>
+          <strong>Previous:</strong> BS/MS Physics, IIT Madras
+        </figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="about" class="reveal">
+      <h2 class="section-title">About</h2>
+      <div class="about-grid">
+        <article class="card about-main">
+          <p>
+            My current research focuses on the <b>real-time dynamics of interacting quantum many-body systems</b>, with an emphasis on developing <b>scalable numerical methods</b> 
+            for simulating non-equilibrium evolution beyond small system sizes. In particular, I design <b>tensor network–based time-evolution algorithms</b> 
+            and <b>geometry-adapted cluster approaches</b> to approximate thermodynamic-limit dynamics with controlled finite-size errors, complemented by the use of established numerical simulation techniques where appropriate.
+            I routinely run <b>large-scale simulations on HPC clusters (SLURM)</b>, including automated parameter sweeps and long-time dynamics calculations.
+            Several of my numerical implementations are open-source and available on <a href="https://github.com/guharoysayak" target="_blank" rel="noopener">GitHub</a>.
+          </p>
+          <p>
+            From a physics perspective, I investigate how locality, entanglement growth, and dynamical 
+            constraints shape emergent collective behavior in strongly interacting systems. My work explores phenomena 
+            such as confinement dynamics, string and membrane formation, and the emergence of non-perturbative bound states 
+            in lattice and constrained quantum models, with the broader goal of understanding how complex many-body structure arises during real-time evolution. 
+            <a href="#research">Detailed descriptions of these research themes are outlined below.</a>
+          </p>
+          <p><strong>Education</strong></p>
+          <ul class="clean-list">
+            <li><strong>Rice University, Houston, Texas</strong><br>Ph.D. in Physics and Astronomy, 2022 - Present<br>M.S. in Physics and Astronomy, 2022 - 2025</li>
+            <li><strong>Indian Institute of Technology Madras, Chennai, India</strong><br>M.S. in Physics (Final CGPA: 9.48), 2017 - 2022<br>B.S. in Physics, 2017 - 2022</li>
+          </ul>
+          <div class="chips">
+            <span class="chip">Tensor Networks</span>
+            <span class="chip">MPS / MPO / MERA</span>
+            <span class="chip">Python</span>
+            <span class="chip">Scientific Computing</span>
+            <span class="chip">Quantum Dynamics</span>
+            <span class="chip">HPC Simulation</span>
+            <span class="chip">SLURM</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="publications" class="reveal">
+      <h2 class="section-title">Publications</h2>
+      <article class="card">
+        <ul class="clean-list">
+          <li class="pub-list-item">
+            <h3 class="pub-title">Repulsively Bound Hadrons in a $\mathbb{Z}_2$ Lattice Gauge Theory</h3>
+            <p class="pub-authors"><strong>Sayak Guha Roy</strong>, Vaibhav Sharma, Kaidi Xu, Umberto Borla, Jad C. Halimeh, Kaden R. A. Hazzard</p>
+            <div class="pub-links">
+              <a href="https://arxiv.org/abs/2510.23618" target="_blank" rel="noopener">Read Paper</a>
+            </div>
+            <details class="pub-details">
+              <summary>Abstract and metadata</summary>
+              <p>Abstract: The $\mathbb{Z}_2$ lattice gauge theory is a paradigmatic model that exhibits gauge-field-mediated-confinement of pairs of particles into mesons, drawing connections to quantum chromodynamics. In the absence of any additional attractive interactions between particles, mesons are not known to bind in this model. Here, we show that resonant pair-production terms give rise to two separate mechanisms to form stable ``hadron'' bound states of two mesons: either induced by an effective attractive interaction, or a new dynamical binding mechanism induced by an effective repulsion. The repulsively bound hadron is a high-energy state stabilized by being energetically separated from  the two-meson  continuum through quantum fluctuations of the gauge fields. We study the dynamical formation of this bound state starting from local excitations. We use matrix product state techniques based on the time-evolving block decimation algorithm to perform our numerical simulations and analyze the effect of model parameters on hadron formation. Furthermore, we derive an effective model that explains its formation. Our findings are amenable to experimental observation on modern quantum hardware such as superconducting qubits,  trapped ions, and Rydberg atom arrays.</p>
+              <p>Open-source code: <a href="https://github.com/guharoysayak/Z2_LGT" target="_blank" rel="noopener">Z2_LGT GitHub repository</a>.</p>
+              <p class="pub-meta">Metadata: Sayak Guha Roy, Vaibhav Sharma, Kaidi Xu, Umberto Borla, Jad C. Halimeh, Kaden R. A. Hazzard | arXiv:2510.23618v1 | Under review.</p>
+            </details>
+          </li>
+          <li class="pub-list-item">
+            <h3 class="pub-title">Reweighted Time Evolving Block Decimation for Improved Quantum Dynamics Simulations</h3>
+            <p class="pub-authors"><strong>Sayak Guha Roy</strong>, Kevin Slagle</p>
+            <div class="pub-links">
+              <a href="https://arxiv.org/abs/2412.08730" target="_blank" rel="noopener">Read Paper</a>
+            </div>
+            <details class="pub-details">
+              <summary>Abstract and metadata</summary>
+              <p>Abstract: We introduce a simple yet significant improvement to the time-evolving block decimation (TEBD) tensor network algorithm for simulating the time dynamics of strongly correlated one-dimensional (1D) mixed quantum states. The efficiency of 1D tensor network methods stems from using a product of matrices to express either: the coefficients of a wavefunction, yielding a matrix product state (MPS); or the expectation values of a density matrix, yielding a matrix product density operator (MPDO). To avoid exponential computational costs, TEBD truncates the matrix dimension while simulating the time evolution. However, when truncating an MPDO, TEBD does not favor the likely more important low-weight expectation values, such as $\langle c_i^\dagger c_j \rangle$, over the exponentially many high-weight expectation values, such as $\langle c_{i_1}^\dagger c^\dagger_{i_2} \cdots c_{i_n} \rangle$ of weight $n$, despite the critical importance of the low-weight expectation values. Motivated by this shortcoming, we propose a reweighted TEBD (rTEBD) algorithm that deprioritizes high-weight expectation values by a factor of $\gamma^{-n}$ during the truncation. This simple modification (which only requires reweighting certain matrices by a factor of $\gamma$ in the MPDO) makes rTEBD significantly more accurate than the TEBD time-dependent simulation of an MPDO, and competitive with and sometimes better than TEBD using MPS. Furthermore, by prioritizing low-weight expectation values, rTEBD preserves conserved quantities to high precision.</p>
+              <p>Open-source package: <a href="https://github.com/guharoysayak/reweighted_TEBD" target="_blank" rel="noopener">reweighted_TEBD GitHub repository</a>.</p>
+              <p class="pub-meta">Metadata: Sayak Guha Roy, Kevin Slagle | arXiv:2412.08730 | Under review.</p>
+            </details>
+          </li>
+          <li class="pub-list-item">
+            <h3 class="pub-title">Interpolating Between the Gauge and Schrödinger Pictures of Quantum Dynamics</h3>
+            <p class="pub-authors"><strong>Sayak Guha Roy</strong>, Kevin Slagle</p>
+            <p class="pub-journal">SciPost Physics Core 6, 081 (2023)</p>
+            <div class="pub-links">
+              <a href="https://scipost.org/SciPostPhysCore.6.4.081" target="_blank" rel="noopener">Read Paper</a>
+            </div>
+            <details class="pub-details">
+              <summary>Abstract and metadata</summary>
+              <p>Abstract: Although spatial locality is explicit in the Heisenberg picture of quantum dynamics, spatial locality is not explicit in the Schrödinger picture equations of motion. The gauge picture is a modification of Schrödinger's picture such that locality is explicit in the equations of motion. In order to achieve this explicit locality, the gauge picture utilizes (1) a distinct wavefunction associated with each patch of space, and (2) time-dependent unitary connections to relate the Hilbert spaces associated with nearby patches. In this work, we show that by adding an additional spatially-local term to the gauge picture equations of motion, we can effectively interpolate between the gauge and Schrödinger pictures, such that when this additional term has a large coefficient, all of the gauge picture wavefunctions approach the Schrödinger picture wavefunction (and the connections approach the identity).</p>
+              <p class="pub-meta">Metadata: Sayak Guha Roy, Kevin Slagle | SciPost Physics Core 6, 081 (2023) | Published.</p>
+            </details>
+          </li>
+          <li class="pub-list-item">
+            <h3 class="pub-title">Non-trivial impurity and field effects in Topological Kondo Insulator SmB6</h3>
+            <p class="pub-authors"><strong>Sayak Guha Roy</strong>, Anirban Das, Shantanu Mukherjee</p>
+            <p class="pub-journal">Materials Today: Proceedings (2022), ISSN 2214-7853</p>
+            <div class="pub-links">
+              <a href="https://doi.org/10.1016/j.matpr.2022.01.193" target="_blank" rel="noopener">Read Paper</a>
+            </div>
+            <details class="pub-details">
+              <summary>Abstract and metadata</summary>
+              <p>Abstract: Topological Kondo Insulator SmB6 is a strongly correlated material where a spin-orbit interaction between the localized odd-parity f-electron and even parity d-electron levels lead to a band inversion and opening of an insulating gap. The non-trivial topology (Z2 = -1) leads to the formation of a topologically protected conducting surface state due to the presence of strong correlation physics. Although the bulk material is known to form a topological Kondo gap, recent magnetic quantum oscillation experiments on SmB6 find an unconventional Fermi surface whose origin remains a matter of intense debate, and the possible role of topological surface state and impurity induced in-gap states have been proposed. By utilizing a realistic multi-orbital tight-binding Hamiltonian, this work aims to develop a microscopic model to study the effects of perturbations like external magnetic fields, and impurities on the low energy bulk and topological surface state properties of SmB6. We further examine the role of an external electric field in tuning the non-trivial topological surface state in SmB6 and provide experimentally observable signatures in the local density of state (LDOS) near non-magnetic and magnetic impurities. Additionally, we study the surface Ferromagnetism that arises in SmB6 as observed by magnetoresistance experiments.</p>
+              <p class="pub-meta">Metadata: Sayak Guha Roy, Anirban Das, Shantanu Mukherjee | Materials Today: Proceedings (2022), ISSN 2214-7853 | Published.</p>
+            </details>
+          </li>
+        </ul>
+      </article>
+      <article class="card" style="margin-top: 0.9rem;">
+        <h3>In Preparation</h3>
+        <ul class="clean-list">
+          <li><strong>Geometry-Adapted Exact Diagonalization with Rigorous Error Bounds.</strong><br><strong>Sayak Guha Roy</strong>, Ian White, Zhiyuan Wang, Bhuvanesh Sundar, Kaden R. A. Hazzard.</li>
+          <li><strong>Reducing Qubit Idling in MERA with Qubit Reuse.</strong><br>Yongtao Deng, <strong>Sayak Guha Roy</strong>, Kevin Slagle, Kaden R. A. Hazzard.</li>
+        </ul>
+      </article>
+      <div class="codes-awards-grid" style="margin-top: 0.9rem;">
+        <article class="card">
+          <h3>Open Source Codes and Packages</h3>
+          <ul class="clean-list">
+            <li><strong>rTEBD package:</strong> <a href="https://github.com/guharoysayak/reweighted_TEBD" target="_blank" rel="noopener">github.com/guharoysayak/reweighted_TEBD</a> - open-source implementation of reweighted TEBD workflows for improved dynamics simulations.</li>
+            <li><strong>Z2 LGT code:</strong> <a href="https://github.com/guharoysayak/Z2_LGT" target="_blank" rel="noopener">github.com/guharoysayak/Z2_LGT</a> - open-source codebase for Z2 lattice gauge theory simulations.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Awards and Honors</h3>
+          <ul class="clean-list">
+            <li>Robert L Chuoke Award, Rice University (2023-2024).</li>
+            <li>Prof. J Sobhanadri Prize, IIT Madras (2022).</li>
+            <li>Mr. S. Venkitaramanan IAS Retd Prize, IIT Madras (2022).</li>
+            <li>Electronics For You Prize, IIT Madras (2021).</li>
+            <li>INSPIRE Scholarship Awardee (2017-2021).</li>
+          </ul>
+        </article>
+      </div>
+      <article class="card" style="margin-top: 0.9rem;">
+        <h3>Talks and Posters</h3>
+        <ul class="clean-list">
+          <li><strong>eQMA Workshop on Hidden Orders and Quantum Entanglement</strong> - Poster (Oct 6-8, 2025): Repulsively Bound Hadrons in a $\mathbb{Z}_2$ Lattice Gauge Theory.</li>
+          <li><strong>Rice Quantum Initiative (RQI)</strong> - Invited Talk (Sept 12, 2025): Repulsively Bound Hadrons in a $\mathbb{Z}_2$ Lattice Gauge Theory.</li>
+          <li><strong>APS DAMOP 2025</strong>, Portland, Oregon - Oral presentation (Jun 16-20, 2025): Reweighted Time Evolving Block Decimation for Improved Quantum Dynamics Simulations.</li>
+          <li><strong>Workshop on Quantum Materials and Entanglement</strong>, Rice University - Poster (Oct 7-9, 2024): Reweighted Time Evolving Block Decimation for Improved Quantum Dynamics Simulations.</li>
+          <li><strong>Coherent Quantum Dynamics Summer School</strong>, OIST, Okinawa, Japan - Poster (Sept 24 - Oct 4, 2024): Reweighted Time Evolving Block Decimation for Improved Quantum Dynamics Simulations.</li>
+          <li><strong>Modeling Strongly Correlated Electrons, ASC School</strong>, Munich, Germany - Poster (Sept 16-20, 2024): Reweighted Time Evolving Block Decimation for Improved Quantum Dynamics Simulations.</li>
+          <li><strong>SCI Summer Colloquium</strong>, Rice University - Oral presentation (Aug 2, 2024): Reweighted Time Evolving Block Decimation for Improved Quantum Dynamics Simulations.</li>
+          <li><strong>RQI Group Meeting</strong> - Invited Talk (Apr 26, 2024): Interpolating Between the Gauge and the Schrödinger Pictures of Quantum Dynamics.</li>
+          <li><strong>March Meeting 2024</strong>, Minneapolis, Minnesota - Oral presentation (Mar 4-8, 2024): Interpolating between the Gauge and the Schrödinger Pictures of Quantum Dynamics.</li>
+          <li><strong>QuantIPS 2023</strong>, Rice University - Poster (Oct 26-27, 2023): Interpolating between the Gauge and the Schrödinger Pictures of Quantum Dynamics.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="research" class="reveal">
+      <h2 class="section-title">Research Directions</h2>
+      <div class="timeline">
+        <article class="card interest-group">
+          <h3 class="interest-group-main">Computational Methods</h3>
+          <h4 class="interest-topic-title">Tensor Network Methods</h4>
+          <p>My tensor network research focuses on the development and application of time-evolution algorithms for interacting quantum many-body systems. I have developed reweighted TEBD (rTEBD) and written custom MPS-TEBD codes to simulate real-time dynamics in lattice gauge theory and other constrained models, enabling the study of confinement dynamics and emergent bound states beyond the reach of brute-force exact diagonalization. I am currently extending these tensor network frameworks to open quantum systems and dissipative settings, and I am particularly interested in collaborations where these tools can be used to model dynamics relevant to Rydberg tweezer arrays, synthetic dimensions, and programmable gauge-theory experiments, with clear predictions for measurable correlators and finite-time signals.</p>
+          <h4 class="interest-topic-title">Geometry-Adapted Numerical Methods</h4>
+          <p>I develop Geometry-Adapted methods (GA-ED and beyond) as a controlled framework for studying quantum many-body systems while mitigating finite-size and geometry-induced errors inherent to conventional numerical approaches. The central idea is to construct clusters or computational domains adapted to the spatial structure of observables, excitations, or correlation functions, enabling more faithful approximation of thermodynamic-limit behavior. While initially implemented within exact diagonalization (GA-ED) for real-time dynamics, this philosophy naturally extends to other numerical techniques including tensor network methods and geometry-adapted QMC for investigating ground-state properties, phase transitions, and non-equilibrium dynamics within a unified framework. I am particularly interested in developing and applying these geometry-adapted approaches to new models and physical platforms, and I am actively open to collaborations where GA-based methods can be leveraged to obtain reliable physics beyond standard finite-size simulations.</p>
+          
+        </article>
+        <article class="card interest-group">
+          <h3 class="interest-group-main">Quantum Algorithms</h3>
+          <h4 class="interest-topic-title">MERA and Tensor Network Quantum Circuits</h4>
+          <p>My work on MERA (Multi-scale Entanglement Renormalization Ansatz) focuses on its interpretation as a quantum circuit and its potential implementation on quantum hardware using qubit reuse and structured circuit compression. I am interested in how tensor network architectures such as MERA can be mapped onto efficient quantum algorithms for simulating many-body systems, particularly in settings where entanglement has a hierarchical structure. By viewing MERA as a sequence of unitary layers with scale-dependent disentanglers and isometries, this approach enables resource-efficient circuit constructions for state preparation and renormalization-inspired quantum simulations. More broadly, I aim to explore how tensor network structures can be translated into practical quantum algorithms that reduce qubit overhead while retaining the ability to capture long-range correlations and multi-scale entanglement in strongly interacting systems.</p>
+          
+        </article>
+        <article class="card interest-group">
+          <h3 class="interest-group-main">Quantum Many-Body Phenomena</h3>
+          <article class="timeline-item">
+            <h3 class="interest-topic-title">Quantum Simulation Using Rydberg Atom Arrays</h3>
+            <p class="meta">Current Focus</p>
+            <p>My work on realizing synthetic dimensions in Rydberg atom arrays is carried out in close collaboration with ongoing experiments using programmable tweezer platforms. In this setting, discrete Rydberg levels serve as an engineered synthetic lattice direction, enabling controlled exploration of interacting quantum dynamics beyond conventional real-space motion. Working alongside experimental efforts, I develop theoretical models to describe the evolution starting from atoms initialized in a central synthetic level, and analyze both few- and many-body dynamics across interaction regimes. In the weakly interacting limit, the system exhibits modified quantum walks along the synthetic dimension, whereas strong interactions suppress transport and generate dynamically frozen configurations with string- or membrane-like structure. In the intermediate regime, richer correlated behavior emerges that is challenging for conventional numerical techniques, underscoring the value of programmable Rydberg arrays as quantum simulators. By combining theoretical analysis with experimental observations, we characterize the relevant energy and length scales governing string and membrane formation, as well as the competing processes that drive their dissociation.</p>
+          </article>
+          <article class="timeline-item" style="margin-top: 0.9rem;">
+            <h3 class="interest-topic-title">Lattice Gauge Theories</h3>
+            <p class="meta">Current Focus</p>
+            <p>My work on lattice gauge theories develops a theoretical framework for understanding confinement, bound-state formation, and non-equilibrium dynamics in minimal gauge models that are now realizable in programmable quantum simulators. I first demonstrated that a $1+1D$ $\mathbb{Z}_2$ lattice gauge theory can support repulsively bound hadronic states—stable four-particle bound states that lie energetically above a two-meson continuum—arising purely from gauge-field–mediated fluctuations rather than conventional attractive interactions. Building on this result, I extend the analysis to higher dimensions and investigate bound-state formation driven by magnetic plaquette dynamics. In particular, for $2+1D$ $\mathbb{Z}_2$ gauge theory coupled to Ising matter, I identify resonant plaquette configurations composed of parallel dimers and U-shaped string states, and show that magnetic fluctuations can stabilize tetraquark-like bound states whose decay into delocalized dimers is strongly suppressed despite available decay channels. More broadly, this work aims to characterize the effective mechanisms and energy scales governing emergent hadronic physics in minimal gauge models, including the mobility and stability of bound states beyond single plaquettes and the role of magnetic interactions in binding extended string configurations. By combining analytical modeling with large-scale numerical simulations, these results provide concrete and experimentally testable predictions for near-term quantum simulation platforms, including Rydberg atom arrays and other programmable gauge-structured systems.</p>
+          </article>
+        </article>
+        <article class="card interest-group">
+          <h3 class="interest-group-main">Selected Research Directions</h3>
+          <h4 class="interest-topic-title">Gauge Picture of Quantum Dynamics</h4>
+          <p>My research on the gauge picture of quantum dynamics develops a structured reformulation of many-body time evolution in which locality is made explicit by replacing the global wavefunction with a collection of patch-local wavefunctions connected by dynamical gauge-like transformations. Building on this framework, I study interpolation schemes between the gauge and Schrödinger pictures that control how local wavefunctions and connections approach the conventional global description, providing a tunable bridge between explicitly local dynamics and standard quantum evolution. This perspective naturally leads to gauge-network representations, where truncated local wavefunctions and connections form a network capable of efficiently encoding correlation functions and long-range information through structured connections between spatial patches. Conceptually, this line of work is motivated by the idea that gauging the global unitary invariance of quantum mechanics yields a locally gauge-invariant dynamical description with explicitly local equations of motion, offering new insights into operator locality, correlation transport, and alternative simulation architectures for complex quantum many-body systems.</p>
+          <h4 class="interest-topic-title">Early Research: Quantum Many-Body Simulations and Computational Physics</h4>
+          <p>During my research at IIT Madras, I worked on numerical studies of strongly correlated quantum systems using Stochastic Series Expansion (SSE) Quantum Monte Carlo applied to disordered Bose-Hubbard models, exploring interaction-disorder interplay and emergent phase behavior. I also conducted research on topological Kondo insulators, studying correlation-driven topological phases in interacting systems. In addition, I contributed to detector layout optimization in a high-energy physics experiment. This early work established my foundation in large-scale numerical methods and computational physics, which now underpins my research on tensor networks, geometry-adapted methods, and quantum many-body dynamics.</p>
+          
+        </article>
+      </div>
+    </section>
+
+    <section id="teaching" class="reveal">
+      <h2 class="section-title">Teaching</h2>
+      <article class="card">
+        <ul class="clean-list">
+          <li><strong>Introduction to Solid State (PHYS 563) - Rice University</strong> | August 2024 - November 2024</li>
+          <li><strong>Quantum Information Theory (ELEC 677) - Rice University</strong> | January 2024 - May 2024</li>
+          <li><strong>Intermediate Mechanics (PHYS 301) - Rice University</strong> | August 2023 - November 2023</li>
+          <li><strong>Modern Physics (PHYS 202) - Rice University</strong> | January 2023 - May 2023</li>
+          <li><strong>Physics II (PH1020) - IIT Madras</strong> | January 2021 - April 2021</li>
+          <li><strong>Physics I (PH1010) - IIT Madras</strong> | November 2021 - January 2021</li>
+          <li><strong>Introductory Physics Laboratory (PH1030) - IIT Madras</strong> | August 2021 - November 2021</li>
+          <li><strong>Applications of Quantum Mechanics - IIT Madras</strong> | July 2021 | <a href="https://github.com/HorizonIITM/summer-school-2021/blob/master/week-03/applications-of-qm/Applications_of_QM_Slides.pdf" target="_blank" rel="noopener">Link</a></li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="outreach" class="reveal">
+      <h2 class="section-title">Outreach</h2>
+      <article class="card">
+        <p><strong><a href="https://owlnest.rice.edu/organization/PAGSA" target="_blank" rel="noopener">Physics and Astronomy Graduate Student Association (PAGSA) at Rice University</a></strong> | May 2023 - Present</p>
+        <ul class="clean-list">
+          <li><b>Department Representative</b>, May 2025 to present - I act as a bridge between the department, the faculty and the graduate students to facilitate communication and collaboration.</li>
+          <li><b>Student Engagement Officer</b>, May 2024 to May 2025 - I led mentor–mentee initiatives connecting incoming first-year graduate students with senior students to foster academic integration, peer support, and community building.</li>
+          <li><b>Graduate Student Representative (GSA-REP)</b>, May 2023 to May 2024 - I acted as a bridge between the Graduate Student Association (GSA) and PAGSA to facilitate communication and collaboration.</li>
+          <li>I conducted several social and academic events at Rice University.</li>
+        </ul>
+
+        <p><strong>NEWT Mentoring Program</strong> | Spring 2024</p>
+        <ul class="clean-list">
+          <li>I mentored a high school student regarding career opportunities.</li>
+        </ul>
+
+        <p><strong>Rice Physics visit week</strong> | Spring 2023</p>
+        <ul class="clean-list">
+          <li>I organized a research poster session for prospective graduate students.</li>
+        </ul>
+
+        
+
+        <p><strong><a href="https://horizoniitm.github.io/horizon/" target="_blank" rel="noopener">Physics and Astronomy Club at IIT Madras</a> - Coordinator and Strategist</strong> | April 2018 - April 2020</p>
+        <ul class="clean-list">
+          <li>I conducted astronomy, theoretical physics, observation sessions and mini projects for IIT Madras students; experienced in handling telescopes on Equatorial and Dobsonian mounts.</li>
+          <li>I conducted an educational trip to Vainu Bappu Observatory for first-year undergraduates.</li>
+          <li>I collaborated with IViL, another student-run organization for rural empowerment, to conduct an observation session for children from rural backgrounds.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="hobbies" class="reveal">
+      <h2 class="section-title">Hobbies</h2>
+      <article class="card">
+        <ul class="clean-list">
+          <li><strong>Rock climbing:</strong> I enjoy climbing for problem-solving, focus, and steady progression.</li>
+          <li><strong>Tennis, badminton, squash:</strong> Racket sports are my go-to for fast-paced play and endurance.</li>
+          <li><strong>Hiking and fitness:</strong> Regular training, exploring trails and spending extended time outdoors helps me maintain mental clarity.</li>
+          <li><strong>Soccer fan:</strong> I actively follow major leagues and international tournaments.</li>
+          <li><strong>Scientific computing beyond primary research:</strong> I build and test numerical workflows outside my core projects to explore new ideas.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="contact" class="reveal">
+      <h2 class="section-title">Contact</h2>
+      <article class="card">
+        <p>
+          Email is the best way to reach me. You can also find my publications and code through the links below.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:sg161@rice.edu">Email</a>
+          <a href="https://scholar.google.com/citations?hl=en&user=lOpcHxwAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+          <a href="https://github.com/guharoysayak" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/sayak-guha-roy-508086210/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="assets/CV_SGR.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Sayak. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+  </script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <script>
+    window.addEventListener("load", () => {
+      if (window.MathJax) MathJax.typesetPromise();
+    });
+  </script>
+</body>
+</html>
